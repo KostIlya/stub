@@ -10,7 +10,7 @@ import java.util.Random;
 
 @Service
 public class StubHelperService {
-    Random random = new Random();
+    private final Random random = new Random();
     private final Logger log = LoggerFactory.getLogger(StubHelperService.class);
 
     public Integer getTimeResponse() {
