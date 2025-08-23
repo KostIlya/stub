@@ -2,36 +2,41 @@ package ru.bi.stub.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.bi.stub.model.PostRequest;
-import ru.bi.stub.service.StubHelperService;
+
+import java.util.Random;
 
 @RestController
 @RequestMapping(path = "/api")
 public class MainController {
-    @Autowired
-    private StubHelperService stubHelperService;
     private final Logger log = LoggerFactory.getLogger(MainController.class);
 
     @GetMapping("/get")
-    public String getLogin() {
-        stubHelperService.sleep();
+    public ResponseEntity<String> getLogin() {
+        sleep();
 
-        log.info("The getLogin method is executed.");
+        String response = "{\"login\":\"Login1\",\"status\":\"ok\"}";
 
-        return "{\"login\":\"Login1\",\"status\":\"ok\"}";
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/post")
-    public String postLogin(@RequestBody PostRequest postRequest) {
-        stubHelperService.sleep();
+    public ResponseEntity<PostRequest> postLogin(@RequestBody PostRequest postRequest) {
+        sleep();
 
-        String dateTime = stubHelperService.getCurrentDateTime();
+        return new ResponseEntity<>(postRequest, HttpStatus.OK);
+    }
 
-        log.info("The postLogin method is executed. Date: {}.", dateTime);
-
-        return String.format("{\"login\":\"%s\",\"password\":\"%s\",\"date\":\"%s\"}",
-                postRequest.getLogin(), postRequest.getPassword(), dateTime);
+    public void sleep() {
+        Random random = new Random();
+        int timeResponse = 1000 + random.nextInt(0, 1000);
+        try {
+            Thread.sleep(timeResponse);
+        } catch (InterruptedException e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }
