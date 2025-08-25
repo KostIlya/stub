@@ -1,10 +1,17 @@
 package ru.bi.stub.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class PostRequest {
+    @NotBlank
+    @Size(min=4,max=10)
     private String login;
+    @NotBlank
+    @Size(min=6,max=16)
     private String password;
     private final String dateTime;
 

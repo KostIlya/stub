@@ -1,8 +1,8 @@
 package ru.bi.stub.controller;
 
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.bi.stub.model.PostRequest;
@@ -20,14 +20,14 @@ public class MainController {
 
         String response = "{\"login\":\"Login1\",\"status\":\"ok\"}";
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/post")
-    public ResponseEntity<PostRequest> postLogin(@RequestBody PostRequest postRequest) {
+    public ResponseEntity<PostRequest> postLogin(@RequestBody @Valid PostRequest postRequest) {
         sleep();
 
-        return new ResponseEntity<>(postRequest, HttpStatus.OK);
+        return ResponseEntity.ok().body(postRequest);
     }
 
     public void sleep() {
