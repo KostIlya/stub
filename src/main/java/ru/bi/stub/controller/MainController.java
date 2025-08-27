@@ -1,8 +1,7 @@
 package ru.bi.stub.controller;
 
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.bi.stub.model.PostRequest;
@@ -11,9 +10,8 @@ import java.util.Random;
 
 @RestController
 @RequestMapping(path = "/api")
+@Log4j2
 public class MainController {
-    private final Logger log = LoggerFactory.getLogger(MainController.class);
-
     @GetMapping("/get")
     public ResponseEntity<String> getLogin() {
         sleep();
