@@ -6,12 +6,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.bi.stub.model.PostRequest;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 @RestController
 @RequestMapping(path = "/api")
 @Log4j2
 public class MainController {
+    private static HashSet<String> leakSet = new HashSet<>();
+
+
     @GetMapping("/get")
     public ResponseEntity<String> getLogin() {
         sleep();
@@ -26,6 +31,13 @@ public class MainController {
         sleep();
 
         return ResponseEntity.ok().body(postRequest);
+    }
+
+    @GetMapping("/leak")
+    public void leak() {
+        for (int i = 0; i < 5_000_000; i++) {
+            leakSet.add(new String("string"));
+        }
     }
 
     public void sleep() {
