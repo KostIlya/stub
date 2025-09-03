@@ -7,6 +7,8 @@ public class Leak {
     private static final List<Double> list = new ArrayList<>();
 
     public void add() {
-        list.add(Math.random());
+        for (int i = 0; i < 10000; i++) {
+            list.add(Math.random());
+        }
     }
 }
