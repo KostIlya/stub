@@ -7,7 +7,7 @@ public class Leak {
     private static final List<Double> list = new ArrayList<>();
 
     public void add() {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
             list.add(Math.random());
         }
     }
