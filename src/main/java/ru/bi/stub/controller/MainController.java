@@ -12,7 +12,7 @@ import java.util.*;
 @RequestMapping(path = "/api")
 @Log4j2
 public class MainController {
-    private static final List<Double> list = new ArrayList<>();
+    private static final Set<String> set = new HashSet<>();
 
     @GetMapping("/get")
     public ResponseEntity<String> getLogin() {
@@ -32,10 +32,7 @@ public class MainController {
 
     @GetMapping("/leak")
     public ResponseEntity<String> leak() {
-        for (int i = 0; i < 3_000_000; i++) {
-            list.add(Double.MAX_VALUE);
-//            leakSet.add(new String(new char[1024*1000])); // 1mb
-        }
+        set.add(new String(new char[1024*1000])); // 1mb
         return ResponseEntity.ok().body("ok");
     }
 
