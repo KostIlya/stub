@@ -1,12 +1,17 @@
 package ru.bi.stub.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
-@ConfigurationProperties
-public class DbConfig {
+@Component
+@ConfigurationProperties(prefix = "db")
+@Getter
+@Setter
+public class DbConfigProperties {
     private String url;
     private String username;
     private String password;
+    private String dateTimePattern;
 }

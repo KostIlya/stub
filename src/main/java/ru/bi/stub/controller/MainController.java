@@ -10,7 +10,7 @@ import ru.bi.stub.model.PostRequest;
 import java.util.*;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/main")
 @Log4j2
 public class MainController {
 
