@@ -13,9 +13,9 @@ import ru.bi.stub.worker.DataBaseWorker;
 @RequestMapping("/api/db")
 @Slf4j
 public class DbController {
-    @Autowired
     private final DataBaseWorker dataBaseWorker;
 
+    @Autowired
     public DbController(DataBaseWorker dataBaseWorker) {
         this.dataBaseWorker = dataBaseWorker;
     }

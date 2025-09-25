@@ -15,10 +15,10 @@ import java.time.format.DateTimeFormatterBuilder;
 @Service
 @Slf4j
 public class DataBaseWorker {
-    @Autowired
     private final DbConfigProperties dbConfigProperties;
     private final DateTimeFormatter DATE_TIME_FORMAT;
 
+    @Autowired
     public DataBaseWorker(DbConfigProperties dbConfigProperties) {
         this.dbConfigProperties = dbConfigProperties;
         DATE_TIME_FORMAT = new DateTimeFormatterBuilder().appendPattern(dbConfigProperties.getDateTimePattern()).toFormatter();
