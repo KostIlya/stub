@@ -8,22 +8,25 @@ import ru.bi.stub.exception.InvalidJsonException;
 import ru.bi.stub.exception.UserNotFoundException;
 import ru.bi.stub.model.User;
 import ru.bi.stub.worker.DataBaseWorker;
+import ru.bi.stub.worker.FileWorker;
 
 @RestController
 @RequestMapping("/api/db")
 @Slf4j
 public class DbController {
     private final DataBaseWorker dataBaseWorker;
-
+    private final FileWorker fileWorker;
     @Autowired
-    public DbController(DataBaseWorker dataBaseWorker) {
+    public DbController(DataBaseWorker dataBaseWorker, FileWorker fileWorker) {
         this.dataBaseWorker = dataBaseWorker;
+        this.fileWorker = fileWorker;
     }
 
     @GetMapping("/select/{login}")
     public ResponseEntity<User> getUser(@PathVariable String login) {
         try {
             User user = dataBaseWorker.selectUser(login);
+            fileWorker.writeUser(user);
             return ResponseEntity.ok(user);
         } catch (UserNotFoundException e) {
             return ResponseEntity.internalServerError().build();
@@ -39,6 +42,17 @@ public class DbController {
             } else {
                 return ResponseEntity.internalServerError().body("User was not added");
             }
+        } catch (InvalidJsonException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/read")
+    public ResponseEntity<User> getReadUser() {
+        try {
+            User user = fileWorker.readUser();
+            return ResponseEntity.ok(user);
         } catch (InvalidJsonException e) {
             log.error(e.getMessage());
             return ResponseEntity.badRequest().build();
